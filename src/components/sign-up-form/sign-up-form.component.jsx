@@ -87,6 +87,7 @@ const SignUpForm = () => {
                         required: true 
                     }}
                 />
+                
                 <FormInput 
                     label="Confirm Password" 
                     inputOptions = {{
