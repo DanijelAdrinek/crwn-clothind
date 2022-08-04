@@ -37,6 +37,8 @@ const SignUpForm = () => {
             alert('passwords do not match');
             return;
         }
+
+        // try creating a new user and adding that user to our context
         try {
             const { user } = await createAuthUserWithEmailAndPassword(email, password);
             await createUserDocumentFromAuth(user, {displayName});

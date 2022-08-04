@@ -5,7 +5,9 @@ import {
     signInWithPopup, 
     GoogleAuthProvider,
     createUserWithEmailAndPassword,
-    signInWithEmailAndPassword
+    signInWithEmailAndPassword,
+    signOut,
+    onAuthStateChanged
 } from 'firebase/auth';
 
 import { 
@@ -81,3 +83,8 @@ export const signUserInWithEmailAndPassword = async (email, password) => {
     const response = await signInWithEmailAndPassword(auth, email, password)
     return response;
 }
+
+export const signOutUser = async () => await signOut(auth);
+
+// listens to changes to our user object, but if user gets deleted, we need to unmount this function to prevent a memory leak
+export const onAuthStateChangedListener = (callback) => onAuthStateChanged(auth, callback, /* errorCallback, completeCallback */);

@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import { UserProvider } from './contexts/user.context';
 import './index.scss';
 import { BrowserRouter } from 'react-router-dom'
 import App from './App';
@@ -10,7 +11,9 @@ root.render(
   <React.StrictMode>
     {/* BrowserRouter will contorl the routing inside our component */}
     <BrowserRouter>
-      <App />
+      <UserProvider>
+        <App />
+      </UserProvider>
     </BrowserRouter>
   </React.StrictMode>
 );
