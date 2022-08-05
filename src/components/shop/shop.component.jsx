@@ -7,12 +7,12 @@ import ProductCard from "../product-card/product-card.component";
 
 const Shop = () => {
 
-    const { products, setProducts } = useContext(ProductsContext);
+    const { products } = useContext(ProductsContext);
 
     return (
         <div className="products-container">
             {products.map((product) => {
-                return <ProductCard key={product.key} product={product} />
+                return <ProductCard key={product.id} product={product} />
             })}
         </div>
     );
