@@ -1,10 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { UserProvider } from './contexts/user.context';
 import './index.scss';
 import { BrowserRouter } from 'react-router-dom'
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+
+import { UserProvider } from './contexts/user.context';
+import { ProductsProvider } from './contexts/products.context';
+import { CartProvider } from './contexts/cart.context';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -12,7 +15,12 @@ root.render(
     {/* BrowserRouter will contorl the routing inside our component */}
     <BrowserRouter>
       <UserProvider>
-        <App />
+        {/* ProductsProvider is located inside UserProvider in case we want to filter the products by region or anything else based on the user profile, because there is a chance that we might need to use the data from UserProvider inside out ProductsProvider */}
+        <ProductsProvider>
+          <CartProvider>
+            <App />
+          </CartProvider>
+        </ProductsProvider>
       </UserProvider>
     </BrowserRouter>
   </React.StrictMode>
