@@ -1,17 +1,17 @@
-import "./checkout-header.styles.scss";
+import { CheckoutHeaderStyle } from "./checkout-header.styles.jsx";
 
 import CheckoutHeaderItem from "../checkout-header-item/checkout-header-item.component";
 
 const CheckoutHeader = () => {
 
     return (
-        <div className="checkout-header">
+        <CheckoutHeaderStyle>
             <CheckoutHeaderItem name="Product" />
             <CheckoutHeaderItem name="Description" />
             <CheckoutHeaderItem name="Quantity" />
             <CheckoutHeaderItem name="Price" />
             <CheckoutHeaderItem name="Remove" />
-        </div>
+        </CheckoutHeaderStyle>
     )
 
 }

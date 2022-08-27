@@ -1,10 +1,10 @@
-import "./checkout-header-item.styles.scss";
+import { HeaderBlock } from "./checkout-header-item.styles.jsx";
 
 const CheckoutHeaderItem = ({name}) => {
     return (
-        <div className="header-block">
+        <HeaderBlock>
             <span>{name}</span>
-        </div>    
+        </HeaderBlock>    
     )
 }
 
