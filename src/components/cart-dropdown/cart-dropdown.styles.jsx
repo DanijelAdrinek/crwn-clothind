@@ -26,14 +26,9 @@ export const CartItems = styled.div`
 export const ButtonStyled = styled(Button)`
   margin-top: auto;
   padding: 0 25px;
-`
+`;
 
-  // .empty-message {
-  //   font-size: 18px;
-  //   margin: 50px auto;
-  // }
-
-  // button {
-  //   margin-top: auto;
-  //   padding: 0 25px;
-  // }
+export const EmptyMessage = styled.span`
+  font-size: 18px;
+  margin: 50px auto;
+`;
