@@ -1,4 +1,43 @@
-import { useState, createContext, useEffect } from "react";
+import { useState, createContext, useEffect, useReducer } from "react";
+
+import { createAction } from "../utils/reducer/reducer.utils";
+
+export const CART_ACTION_TYPES = {
+    SET_CART_ITEMS: 'SET_CART_ITEMS',
+    SUBTRACT_ITEM_QUANTITY: 'SUBTRACT_ITEM_QUANTITY'
+}
+
+const INITIAL_STATE = {
+    totalCartItems: 0,
+    totalPrice: 0,
+    isCartOpen: false,
+    cartItems: []
+}
+
+/**
+ * takes the type and payload, and executes the function necessary to complete the task
+ *  
+ * @param {object} action
+ */
+const cartReducer = (state, action) => {
+    const { type, payload } = action;
+
+    switch (type) {
+        case CART_ACTION_TYPES.SET_CART_ITEMS:
+            return {
+                ...state,
+                ...payload
+            };
+        case CART_ACTION_TYPES.IS_CART_OPEN:
+            return {
+                ...state,
+                isCartOpen: payload
+            };
+        default:
+            throw new Error(`Unhandled type ${type} in cartReducer`);
+    }
+
+};
 
 const addCartItem = (cartItems, productToAdd) => {
 
@@ -15,6 +54,7 @@ const addCartItem = (cartItems, productToAdd) => {
     return [...cartItems, {...productToAdd, quantity: 1}];
 
 }
+
 
 const removeCartItem = (cartItems, productToRemove) => cartItems.filter(cartItem => cartItem.id !== productToRemove.id);
 
@@ -50,36 +90,46 @@ export const CartContext = createContext({
 });
 
 export const CartProvider = ({ children }) => {
-    const [isCartOpen, setIsCartOpen] = useState(false)
-    const [cartItems, setCartItems] = useState([]);
-    const [totalCartItems, setTotalCartItems] = useState(0);
-    const [totalPrice, setTotalPrice] = useState(0);
+    // const [isCartOpen, setIsCartOpen] = useState(false)
+    // const [cartItems, setCartItems] = useState([]);
+    // const [totalCartItems, setTotalCartItems] = useState(0);
+    // const [totalPrice, setTotalPrice] = useState(0);
 
-    // its a good practice to have a one useEffect govern one singular responsability, helps with code readability
-    useEffect(() => {
+    const [state, dispatch] = useReducer(cartReducer, INITIAL_STATE);
 
-        const cartItemsCount = cartItems.reduce((total, cartItem) => total + cartItem.quantity, 0);
-        setTotalCartItems(cartItemsCount);
-    
-    }, [cartItems]);
+    const { isCartOpen, cartItems, totalCartItems, totalPrice } = state;
 
-    useEffect(() => {
-
+    const updateCartItemsReducer = (cartItems) => {
+        const totalCartItems = cartItems.reduce((total, cartItem) => total + cartItem.quantity, 0);
         const totalPrice = cartItems.reduce((total, cartItem) => total + (cartItem.price * cartItem.quantity), 0);
-        setTotalPrice(totalPrice);
+        
+        const payload = {
+            cartItems,
+            totalCartItems,
+            totalPrice
+        };
     
-    }, [cartItems]);
+        dispatch(createAction(CART_ACTION_TYPES.SET_CART_ITEMS ,payload));
+    }
 
     const addItemToCart = (productToAdd) => {
-        setCartItems(addCartItem(cartItems, productToAdd));
+        const newCartItems = (addCartItem(cartItems, productToAdd));
+        updateCartItemsReducer(newCartItems);
     };
     
     const removeItemFromCart = (productToRemove) => {
-        setCartItems(removeCartItem(cartItems, productToRemove));
+        const newCartItems = (removeCartItem(cartItems, productToRemove));
+        updateCartItemsReducer(newCartItems);
+    
     }
 
     const subtractQuantityFromItem = (productToSubtractQuantityFrom) => {
-        setCartItems(subtractItemQuantity(cartItems, productToSubtractQuantityFrom));
+        const newCartItems = subtractItemQuantity(cartItems, productToSubtractQuantityFrom);
+        updateCartItemsReducer(newCartItems);
+    }
+
+    const setIsCartOpen = (isCartOpen) => {
+        dispatch(createAction(CART_ACTION_TYPES.IS_CART_OPEN, isCartOpen));
     }
 
     const value = {isCartOpen, setIsCartOpen, cartItems, addItemToCart, removeItemFromCart,subtractQuantityFromItem, totalCartItems, totalPrice};

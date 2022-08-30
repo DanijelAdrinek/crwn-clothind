@@ -40,8 +40,6 @@ const SignInForm = () => {
             resetFormFields();
         } catch(error) {
 
-            console.log(error.code);
-
             switch(error.code) {
                 case "auth/user-not-found":
                     console.log(error.code)
