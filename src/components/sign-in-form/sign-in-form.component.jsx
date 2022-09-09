@@ -8,7 +8,7 @@ import { BUTTON_TYPE_CLASSES } from "../button/button.component";
 
 import { useState } from "react";
 
-import { signInWithGooglePopup, createUserDocumentFromAuth } from "../../utils/firebase/firebase.utils";
+import { signInWithGooglePopup } from "../../utils/firebase/firebase.utils";
 
 const defaultInputValues = {
     email: '',

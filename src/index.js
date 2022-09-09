@@ -9,6 +9,9 @@ import { UserProvider } from './contexts/user.context';
 import { CategoriesProvider } from './contexts/categories.context'
 import { CartProvider } from './contexts/cart.context';
 
+import { Elements } from '@stripe/react-stripe-js';
+import { stripePromise } from './utils/stripe/stripe.utils';
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
@@ -18,7 +21,9 @@ root.render(
         {/* ProductsProvider is located inside UserProvider in case we want to filter the products by region or anything else based on the user profile, because there is a chance that we might need to use the data from UserProvider inside out ProductsProvider */}
         <CategoriesProvider>
           <CartProvider>
-            <App />
+            <Elements stripe={stripePromise}>
+              <App />
+            </Elements>
           </CartProvider>
         </CategoriesProvider>
       </UserProvider>
