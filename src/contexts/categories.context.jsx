@@ -1,24 +1,44 @@
 import { createContext, useState, useEffect } from "react";
 
-import { getCategoriesAndDocuments } from "../utils/firebase/firebase.utils.js";
+import { useQuery, gql } from "@apollo/client";
+
+const GET_CATEGORIES = gql`
+    query GetCollections{
+      collections{
+        id,
+        title,
+        items {
+          name,
+          price,
+          imageUrl
+        }
+      }
+    }
+`;
 
 export const CategoriesContext = createContext({
     categoriesMap: {},
 });
 
 export const CategoriesProvider = ({ children }) => {
-    const [categoriesMap, setCategoriesMap] = useState({});
+    // example of variables we get after destructuring useQuery
+    const { loading, error, data } = useQuery(GET_CATEGORIES)
+    const [ categoriesMap, setCategoriesMap ] = useState({});
 
     useEffect(() => {
-        const getCategoryMap = async () => {
-            const categoryMap = await getCategoriesAndDocuments();
-            setCategoriesMap(categoryMap);
+        if(data) {
+            const { collections } = data;
+            const collecitonsMap = collections.reduce((acc, collection) => {
+
+                const {title, items} = collection;
+                acc[title.toLowerCase()] = items;
+
+                return acc
+            }, {});
+
+            setCategoriesMap(collecitonsMap); 
         }
-
-        const categoryMap = getCategoryMap();
-
-        setCategoriesMap(categoryMap);
-    }, [])
+    }, [data])
 
     const value = { categoriesMap };
 
