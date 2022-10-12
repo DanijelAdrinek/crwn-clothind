@@ -9,11 +9,16 @@ import CartItem from "../cart-item/cart-item.components";
 const CartDropdown = () => {
 
     const { cartItems } = useContext(CartContext);
+    const { isCartOpen, setIsCartOpen} = useContext(CartContext);
+    
     const navigate = useNavigate();
+  
+    const toggleIsCartOpen = () => setIsCartOpen(!isCartOpen);
 
     const goToCheckoutPage = () => {
+        toggleIsCartOpen();
         navigate("/checkout");
-    }
+    };
 
     return(
         <CartDropdownContainer>

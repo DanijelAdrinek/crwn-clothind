@@ -8,6 +8,7 @@ const GET_CATEGORIES = gql`
         id,
         title,
         items {
+          id,
           name,
           price,
           imageUrl

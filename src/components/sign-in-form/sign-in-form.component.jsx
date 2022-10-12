@@ -42,7 +42,6 @@ const SignInForm = () => {
 
             switch(error.code) {
                 case "auth/user-not-found":
-                    console.log(error.code)
                     alert("this user doesnt exist!");
                     break;
                 

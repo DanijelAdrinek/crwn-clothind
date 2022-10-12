@@ -9,6 +9,10 @@ export const ProductCardContainer = styled.div`
   height: 350px;
   align-items: center;
   position: relative;
+
+  @media screen and (max-width: 800px) {
+    width: 40vw;
+  }
 `;
 
 export const Image = styled.img`

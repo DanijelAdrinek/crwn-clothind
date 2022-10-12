@@ -24,6 +24,13 @@ export const BaseButton = styled.button`
     color: black;
     border: 1px solid black;
   }
+
+  @media screen and (max-width: 800px) {
+    min-width: unset;
+    font-size: 12px;
+    line-height: 10px;
+    padding: 0 20px;
+  }
 `;
 
 export const GoogleButton = styled(BaseButton)`
