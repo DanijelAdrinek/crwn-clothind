@@ -11,17 +11,9 @@ import { CartProvider } from './contexts/cart.context';
 import { Elements } from '@stripe/react-stripe-js';
 import { stripePromise } from './utils/stripe/stripe.utils';
 
-import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
-
-const client = new ApolloClient({
-  uri: 'https://crwn-clothing.com/',
-  cache: new InMemoryCache(),
-});
-
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <ApolloProvider client={client}>
     {/* BrowserRouter will contorl the routing inside our component */}
     <BrowserRouter>
       <UserProvider>
@@ -35,7 +27,6 @@ root.render(
         </CategoriesProvider>
       </UserProvider>
     </BrowserRouter>
-    </ApolloProvider>
   </React.StrictMode>
 );
 
