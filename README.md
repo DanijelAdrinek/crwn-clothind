@@ -13,7 +13,7 @@ A fake Ecommerce app for clothing
 # Development
 1. clone the repository
 ```
-$ git clone https://github.com/DanijelAdrinek/crwn-clothing.gi
+$ git clone https://github.com/DanijelAdrinek/crwn-clothing.git
 ```
 
 2. install the dependencies
