@@ -17,8 +17,6 @@ const Category = () => {
         setProducts(categoriesMap[category]);
     }, [category, categoriesMap]);
 
-    console.log(categoriesMap);
-
     return (
         <>    
             <CategoryTitle>{category.toUpperCase()}</CategoryTitle>

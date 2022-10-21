@@ -7,8 +7,6 @@ const CategoriesPreview = () => {
 
     const { categoriesMap } = useContext(CategoriesContext);
 
-    console.log(CategoriesContext);
-
     return (
         <>
             {
